@@ -17,18 +17,19 @@ int maxCount=5;//max numbers of magnets it needs to sense
  * If it doesn't change the moveForward to moveBackward and
  * also change the original moveBackward to MoveForward
  */
+void moveStop(){
+  servoL.write(90);
+  servoR.write(90);
+}
+
 void moveForward(){
-  for(int angle=0; angle<361; angle++){
-    servoL.write(angle);
-    servoR.write(360-angle);//check
- }
+  servoL.write(0);
+  servoR.write(180);
 }
 
 void moveBackward(){
-  for(int angle=360; angle>-1; angle--){
-    servoL.write(360-angle);//check
-    servoR.write(angle);
- }
+  servoL.write(180);//check
+  servoR.write(0);
 }
 
 void detectMag(){
@@ -54,11 +55,12 @@ void setup() {
 void loop() {
  boolean detect=detectMag();
  if(detect){//true
-  delay(200);
+  moveStop();
+  milis(200);
   magCounter++;
   moveForward();
     if(magCounter>=maxCount){
-      milis(500);
+      milis(400);
       exit(0);
     }
  }
