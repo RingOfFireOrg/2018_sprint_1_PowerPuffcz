@@ -59,6 +59,7 @@ void loop() {
   moveForward();
     if(magCounter>=maxCount){
       milis(500);
+      exit(0);
     }
  }
  else{
